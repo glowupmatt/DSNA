@@ -6,3 +6,5 @@
       - If the keys are the same
       - If the values for each key match
       - The order of key-value pairs does not matter.
+  - If you want to do a for loop in order to get the index
+      - `for i in range(len())`
