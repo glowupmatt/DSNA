@@ -119,9 +119,57 @@
   ```python
   for i in range(1, 10, 2):  # Starts at 1, ends before 10, steps by 2
       print(i)  # Output: 1, 3, 5, 7, 9
+
+  arr = [1,2,3,4,5]
+  
+  for i in range(len(arr) -1, 0, -1):
+      print(i)  # Output: 5, 4, 3, 2, 1
   ```
 
 ---
+
+### **9. `reversed()` method**
+
+The **`reversed()`** function in Python returns a **reversed iterator** of a given sequence (like a list, tuple, or string) **without modifying the original sequence**.
+
+### **Syntax:**
+```python
+reversed(sequence)
+```
+
+### **Example with a List:**
+```python
+arr = [1, 2, 3, 4, 5]
+rev_arr = list(reversed(arr))
+print(rev_arr)  
+```
+**Output:**
+```
+[5, 4, 3, 2, 1]
+```
+
+### **Example with a String:**
+```python
+s = "hello"
+rev_s = "".join(reversed(s))
+print(rev_s)  
+```
+**Output:**
+```
+"olleh"
+```
+
+### **Key Differences Between `reverse()` and `reversed()`:**
+| Feature        | `reverse()` (Method)  | `reversed()` (Function) |
+|---------------|----------------------|-------------------------|
+| Modifies original list? | ✅ Yes | ❌ No |
+| Returns a new list? | ❌ No (modifies in place) | ✅ Yes (returns an iterator) |
+| Works on strings? | ❌ No | ✅ Yes |
+| Syntax | `list.reverse()` | `reversed(iterable)` |
+
+Would you like an example for a specific case? 😊
+---
+
 
 ### **Summary:**
 - In Python, use the `in` keyword to check for membership instead of `.contains()` or `.has()`.
