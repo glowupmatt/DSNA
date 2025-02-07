@@ -9,3 +9,4 @@
       - The order of key-value pairs does not matter.
   - If you want to do a for loop in order to get the index
       - `for i in range(len())`
+  - If you want to do `.push()` method in python you need to use `.append()`
