@@ -176,4 +176,4 @@ Would you like an example for a specific case? 😊
 - Use `.append()` to add elements to a list, and `dict[key] = value` to add new key-value pairs to a dictionary.
 - Use `range(len())` to iterate over indices.
 - Python dictionaries are unordered collections (before 3.7) and use `==` to compare key-value pairs, not the order.
-- `range()` has three arguments: `start`, `stop`, and `step` for more control over iteration.
+- `range()` has three arguments: `start`, `stop`, and `step` for more control over iteration
