@@ -241,3 +241,15 @@ This improves readability by:
 - Avoiding `range(len(nums))`
 - Making `num` directly available
 
+---
+
+### **12. Using f-strings (Python 3.6+)**
+
+```python
+num = 456
+num_str = f"{num}"
+
+print(num_str)  # Output: '456'
+```
+
+
