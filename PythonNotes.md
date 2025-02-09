@@ -219,4 +219,25 @@ print(count)  # Counter({3: 3, 2: 2, 1: 1})
 - **If handling missing keys with a default integer → `defaultdict(int)`.**  
 - **If simply mapping keys to values without needing a default → Regular `dict`.**  
 - **If needing a default list/set → `defaultdict(list)` or `defaultdict(set)`.**
+
 ----
+
+### **11. `enumerate()`**
+
+#### **Example 3: Using `enumerate()`**
+Your original approach used:
+
+```python
+for i in range(len(nums)):
+    num = nums[i]
+```
+
+✅ **Better with `enumerate()`:**
+```python
+for i, num in enumerate(nums):
+```
+
+This improves readability by:
+- Avoiding `range(len(nums))`
+- Making `num` directly available
+
