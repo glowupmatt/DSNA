@@ -167,13 +167,56 @@ print(rev_s)
 | Works on strings? | ❌ No | ✅ Yes |
 | Syntax | `list.reverse()` | `reversed(iterable)` |
 
-Would you like an example for a specific case? 😊
 ---
+### **10. `defaultdict()`**
 
+Using `defaultdict(int)` is helpful in cases where you need to count occurrences of elements or handle missing keys gracefully, but it’s not always the best approach for every array problem that involves a hashmap. The best approach depends on the specific problem.  
 
-### **Summary:**
-- In Python, use the `in` keyword to check for membership instead of `.contains()` or `.has()`.
-- Use `.append()` to add elements to a list, and `dict[key] = value` to add new key-value pairs to a dictionary.
-- Use `range(len())` to iterate over indices.
-- Python dictionaries are unordered collections (before 3.7) and use `==` to compare key-value pairs, not the order.
-- `range()` has three arguments: `start`, `stop`, and `step` for more control over iteration
+### **When `defaultdict(int)` is Useful**  
+1. **Counting Frequencies**  
+   - Problems like finding duplicates, majority elements, or counting occurrences benefit from `defaultdict(int)`.  
+   - Example:
+     ```python
+     from collections import defaultdict
+     
+     nums = [1, 2, 2, 3, 3, 3]
+     count = defaultdict(int)
+     for num in nums:
+         count[num] += 1
+     print(count)  # {1: 1, 2: 2, 3: 3}
+     ```
+  
+2. **Checking for Missing Keys**  
+   - When checking if an element exists without manually handling `KeyError`.  
+   - Example: Checking if a complementary number exists in a two-sum problem.
+
+### **When a Regular `dict` is Better**  
+1. **Explicit Key Presence Handling**  
+   - If missing keys should raise an error, a regular `dict` forces you to handle cases explicitly, making the logic clearer.  
+
+2. **Hashmaps with More Complex Default Values**  
+   - If you need a complex default value (e.g., an object or function return), using `setdefault()` or manually initializing keys might be clearer.  
+   - Example (avoiding `defaultdict` when an initial computation is needed):  
+     ```python
+     hash_map = {}
+     for num in nums:
+         if num not in hash_map:
+             hash_map[num] = expensive_computation(num)
+     ```
+
+### **When `Counter` is Better**  
+If the goal is purely counting elements, `collections.Counter` is often a better alternative:  
+```python
+from collections import Counter
+nums = [1, 2, 2, 3, 3, 3]
+count = Counter(nums)
+print(count)  # Counter({3: 3, 2: 2, 1: 1})
+```
+`Counter` is optimized for this use case and provides useful methods like `.most_common()`.
+
+### **Best Practices for Array Problems Using HashMaps**  
+- **If counting elements → `Counter` is usually best.**  
+- **If handling missing keys with a default integer → `defaultdict(int)`.**  
+- **If simply mapping keys to values without needing a default → Regular `dict`.**  
+- **If needing a default list/set → `defaultdict(list)` or `defaultdict(set)`.**
+----
