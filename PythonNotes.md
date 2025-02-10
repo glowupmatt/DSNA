@@ -269,7 +269,71 @@ print(num_str)  # Output: '456'
 
 ### Why Use `//` in Binary Search?  
 Binary search relies on integer indices, so `mid` must always be an integer. Using `/` could result in a float, which would cause errors when accessing list indices.  
+___
 
-So, always use `//` when calculating the midpoint in binary search! 🚀
+### **12. Using f-strings (Python 3.6+)**
+
+```python
+num = 456
+num_str = f"{num}"
+
+print(num_str)  # Output: '456'
+```
+---
+
+Your explanation is **almost correct**, but let's refine it for clarity and accuracy.  
+
+---
+
+## **✅ 14. How to Split an Array and Rejoin the Array**
+
+### **1. Joining an Array of Digits into a Number**
+- The goal is to efficiently concatenate and convert digits into a single number.  
+```python
+num_string = int("".join(map(str, digits))) + 1
+```
+✔ **How it works:**
+1. `map(str, digits)`: Converts each integer in the list to a string.  
+2. `"".join(...)`: Joins all string digits into one.  
+3. `int(...)`: Converts the string back into an integer.  
+4. `+1`: Increments the number.  
+
+✔ **Example:**
+```python
+digits = [1, 2, 3]
+num = int("".join(map(str, digits))) + 1
+print(num)  # Output: 124
+```
+
+---
+
+### **2. Splitting a Number Back into an Array of Digits**
+```python
+list(map(int, str(num_string)))
+```
+✔ **How it works:**
+1. `str(num_string)`: Converts the number into a string.  
+2. `map(int, ...)`: Converts each character (digit) back into an integer.  
+3. `list(...)`: Stores the result in a list.  
+
+✔ **Example:**
+```python
+num = 124
+digits = list(map(int, str(num)))
+print(digits)  # Output: [1, 2, 4]
+```
+
+---
+
+## **✅ Final Summary**
+✅ **Joining digits into a number:**  
+```python
+int("".join(map(str, digits)))
+```
+✅ **Splitting a number into digits:**  
+```python
+list(map(int, str(num)))
+```
+Your approach is correct, just needed slight refinements for clarity! 🚀
 
 
