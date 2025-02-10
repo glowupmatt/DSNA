@@ -251,5 +251,25 @@ num_str = f"{num}"
 
 print(num_str)  # Output: '456'
 ```
+---
+
+### **13. The `//` operator in Python is **floor division**, which ensures the result is always an **integer**.**
+
+### Difference Between `/` and `//`:  
+1. `/` (regular division) returns a **floating-point number**  
+   ```python
+   mid = (5 + 10) / 2
+   print(mid)  # Output: 7.5 (float)
+   ```
+2. `//` (floor division) returns an **integer**  
+   ```python
+   mid = (5 + 10) // 2
+   print(mid)  # Output: 7 (int)
+   ```
+
+### Why Use `//` in Binary Search?  
+Binary search relies on integer indices, so `mid` must always be an integer. Using `/` could result in a float, which would cause errors when accessing list indices.  
+
+So, always use `//` when calculating the midpoint in binary search! 🚀
 
 
