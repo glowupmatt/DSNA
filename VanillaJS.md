@@ -33,7 +33,7 @@ list.addEventListener('click', event => {
 ✅ **Efficiency** – Only **one** event listener instead of multiple, reducing memory usage.  
 ✅ **Handles Dynamic Elements** – If new buttons are added dynamically, they will still work without needing additional event listeners.  
 
-# Multiple Divs in a parent
+# Multiple Elements in a Parent
 
 ## Execution
 
@@ -57,3 +57,15 @@ We can create an object like:
       $parentDiv.appendChild(DOM.$tabBar);
       $parentDiv.appendChild(DOM.$tabpanels);
 ```
+
+# State Manipulation
+
+Create a State object that will hold all the data
+```javascript
+const state = {
+  value: defaultValue,
+};
+```
+Now we can manipulate the value in the object and make the code more dynamic.
+
+
