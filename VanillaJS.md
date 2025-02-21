@@ -33,3 +33,27 @@ list.addEventListener('click', event => {
 ✅ **Efficiency** – Only **one** event listener instead of multiple, reducing memory usage.  
 ✅ **Handles Dynamic Elements** – If new buttons are added dynamically, they will still work without needing additional event listeners.  
 
+# Multiple Divs in a parent
+
+## Execution
+
+Instead of creating individual variables like: 
+```javascript
+      const $parentDiv = document.createElement("div");
+      $parentDiv.classList.add("parent-div");
+      const $btnContainer = document.createElement("div");
+      $btnContainer.classList.add("btn-container");
+      const $descContainer = document.createElement("div");
+      $descContainer.classList.add("desc-container");
+```
+We can create an object like:
+
+```javascript
+      const $parentDiv = document.createElement("div");
+      const DOM = {
+        $tabBar: document.createElement('div'),
+        $tabpanels: document.createElement('div'),
+      };
+      $parentDiv.appendChild(DOM.$tabBar);
+      $parentDiv.appendChild(DOM.$tabpanels);
+```
