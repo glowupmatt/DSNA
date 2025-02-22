@@ -58,14 +58,105 @@ We can create an object like:
       $parentDiv.appendChild(DOM.$tabpanels);
 ```
 
-# State Manipulation
+# Observer Pattern in Vanilla JavaScript
 
-Create a State object that will hold all the data
-```javascript
-const state = {
-  value: defaultValue,
-};
+## What is the Observer Pattern?
+The **Observer Pattern** is a behavioral design pattern where an object (the **Subject**) maintains a list of dependents (called **Observers**) and notifies them of state changes. This pattern is commonly used in event-driven programming, reactive UIs, and Pub-Sub models.
+
+---
+
+## How the Observer Pattern Works
+1. The **Subject** maintains a list of observers.
+2. Observers subscribe to the Subject.
+3. When the Subject's state changes, it notifies all observers.
+4. Observers react to the notification accordingly.
+
+---
+
+## Implementation in Vanilla JavaScript
+
+```js
+// Step 1: Create the Subject (Observable)
+class Subject {
+  constructor() {
+    this.observers = [];
+  }
+
+  // Method to add observers
+  subscribe(observer) {
+    this.observers.push(observer);
+  }
+
+  // Method to remove observers
+  unsubscribe(observer) {
+    this.observers = this.observers.filter(obs => obs !== observer);
+  }
+
+  // Notify all observers of a change
+  notify(data) {
+    this.observers.forEach(observer => observer.update(data));
+  }
+}
+
+// Step 2: Create the Observer
+class Observer {
+  constructor(name) {
+    this.name = name;
+  }
+  
+  update(data) {
+    console.log(`${this.name} received data:`, data);
+  }
+}
+
+// Step 3: Usage Example
+const subject = new Subject();
+
+const observer1 = new Observer("Observer 1");
+const observer2 = new Observer("Observer 2");
+
+subject.subscribe(observer1);
+subject.subscribe(observer2);
+
+// Notify observers
+subject.notify("Hello Observers!");
+
+// Unsubscribe an observer
+subject.unsubscribe(observer1);
+
+// Notify again (only observer2 should receive this)
+subject.notify("Another update!");
 ```
-Now we can manipulate the value in the object and make the code more dynamic.
+
+---
+
+## Explanation
+1. **Subject Class:**
+   - Maintains a list of observers.
+   - Provides methods to subscribe, unsubscribe, and notify observers.
+
+2. **Observer Class:**
+   - Implements an `update` method that gets called when notified.
+
+3. **Usage:**
+   - We create a subject and observers.
+   - Observers subscribe to the subject.
+   - When `notify()` is called, all observers receive the update.
+   - Unsubscribed observers do not receive further updates.
+
+---
+
+## Real-World Applications
+- **Event Listeners:** DOM elements listening for events.
+- **State Management:** Libraries like Redux, Vuex, and MobX.
+- **Pub/Sub Systems:** WebSockets, messaging queues, etc.
+
+---
+
+## Conclusion
+The **Observer Pattern** is a powerful way to create a loosely coupled system where multiple objects react to changes dynamically. It is widely used in modern JavaScript applications, especially in UI frameworks and event-driven programming.
+
+---
+
 
 
