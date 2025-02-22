@@ -58,105 +58,189 @@ We can create an object like:
       $parentDiv.appendChild(DOM.$tabpanels);
 ```
 
-# Observer Pattern in Vanilla JavaScript
 
-## What is the Observer Pattern?
-The **Observer Pattern** is a behavioral design pattern where an object (the **Subject**) maintains a list of dependents (called **Observers**) and notifies them of state changes. This pattern is commonly used in event-driven programming, reactive UIs, and Pub-Sub models.
+# 📌 Observer Pattern in Vanilla JavaScript Tabs Component
 
----
+## 🚀 What is the Observer Pattern?
+The **Observer Pattern** is a design pattern where an **observable object** maintains a list of dependents (**observers**) and notifies them of any state changes. It promotes **loose coupling**, making it easier to extend and maintain code.
 
-## How the Observer Pattern Works
-1. The **Subject** maintains a list of observers.
-2. Observers subscribe to the Subject.
-3. When the Subject's state changes, it notifies all observers.
-4. Observers react to the notification accordingly.
+In **JavaScript**, this is commonly used in event-driven programming where multiple components need to react to a single event.
 
 ---
 
-## Implementation in Vanilla JavaScript
+## 🛠 Implementing the Observer Pattern in a Tabs Component
+
+### 🔹 **Step 1: Create an Observable Class**
+We define an `Observable` class that allows objects to **subscribe** and **react** when the state changes.
 
 ```js
-// Step 1: Create the Subject (Observable)
-class Subject {
+class Observable {
   constructor() {
     this.observers = [];
   }
 
-  // Method to add observers
   subscribe(observer) {
     this.observers.push(observer);
   }
 
-  // Method to remove observers
   unsubscribe(observer) {
-    this.observers = this.observers.filter(obs => obs !== observer);
+    this.observers = this.observers.filter(sub => sub !== observer);
   }
 
-  // Notify all observers of a change
   notify(data) {
-    this.observers.forEach(observer => observer.update(data));
+    this.observers.forEach(observer => observer(data));
   }
 }
+```
 
-// Step 2: Create the Observer
-class Observer {
-  constructor(name) {
-    this.name = name;
+- `subscribe(observer)`: Adds a new observer (callback function).
+- `unsubscribe(observer)`: Removes an observer.
+- `notify(data)`: Calls all subscribed observers with the provided data.
+
+---
+
+### 🔹 **Step 2: Modify the Tabs Component to Use Observers**
+We integrate the `Observable` class into our **tabs component** to notify observers whenever the active tab changes.
+
+```js
+(() => {
+  function tabs($rootEl, { defaultValue, items: itemsParam }) {
+    const DOM = {
+      $tabBar: document.createElement("div"),
+      $tabpanels: document.createElement("div"),
+    };
+
+    const items = itemsParam;
+    const state = {
+      value: defaultValue || items[0].value,
+    };
+
+    // Create an observable instance
+    const tabObservable = new Observable();
+
+    function update() {
+      const $tabsFragment = document.createDocumentFragment();
+      items.forEach(({ label, value: itemValue }) => {
+        const $tabEl = document.createElement("button");
+        const isTabActive = itemValue === state.value;
+
+        $tabEl.textContent = label;
+        $tabEl.type = "button";
+        $tabEl.setAttribute("data-value", itemValue);
+        $tabEl.classList.add("tabs-list-item");
+
+        if (isTabActive) {
+          $tabEl.classList.add("tabs-list-item--active");
+        }
+
+        $tabsFragment.appendChild($tabEl);
+      });
+
+      DOM.$tabBar.innerHTML = "";
+      DOM.$tabBar.appendChild($tabsFragment);
+
+      const $tabpanelsFragment = document.createDocumentFragment();
+      items.forEach(({ panel, value: itemValue }) => {
+        const isTabActive = itemValue === state.value;
+
+        const $tabpanelEl = document.createElement("div");
+        $tabpanelEl.textContent = panel;
+        $tabpanelEl.hidden = !isTabActive;
+
+        $tabpanelsFragment.appendChild($tabpanelEl);
+      });
+
+      DOM.$tabpanels.innerHTML = "";
+      DOM.$tabpanels.appendChild($tabpanelsFragment);
+
+      // 🔥 Notify observers when the tab changes
+      tabObservable.notify(state.value);
+    }
+
+    function attachEvents() {
+      // Use Event Delegation
+      DOM.$tabBar.addEventListener("click", (event) => {
+        if (event.target.tagName !== "BUTTON") {
+          return;
+        }
+
+        state.value = event.target.getAttribute("data-value");
+        update();
+      });
+    }
+
+    function init() {
+      $rootEl.classList.add("tabs");
+
+      DOM.$tabBar.className = "tabs-list";
+      $rootEl.appendChild(DOM.$tabBar);
+      $rootEl.appendChild(DOM.$tabpanels);
+    }
+
+    init();
+    update();
+    attachEvents();
+
+    return {
+      subscribe: tabObservable.subscribe.bind(tabObservable),
+      unsubscribe: tabObservable.unsubscribe.bind(tabObservable),
+    };
   }
-  
-  update(data) {
-    console.log(`${this.name} received data:`, data);
-  }
-}
 
-// Step 3: Usage Example
-const subject = new Subject();
+  // 🔹 Initialize Tabs
+  const tabComponent = tabs(document.getElementById("tabs"), {
+    items: [
+      {
+        value: "html",
+        label: "HTML",
+        panel:
+          "The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.",
+      },
+      {
+        value: "css",
+        label: "CSS",
+        panel:
+          "Cascading Style Sheets is a style sheet language used for describing the presentation of a document written in a markup language such as HTML or XML.",
+      },
+      {
+        value: "javascript",
+        label: "JavaScript",
+        panel:
+          "JavaScript, often abbreviated as JS, is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS.",
+      },
+    ],
+  });
 
-const observer1 = new Observer("Observer 1");
-const observer2 = new Observer("Observer 2");
+  // 🔥 Subscribe an external function to listen for tab changes
+  tabComponent.subscribe((newTab) => {
+    console.log(`Tab changed to: ${newTab}`);
+  });
 
-subject.subscribe(observer1);
-subject.subscribe(observer2);
-
-// Notify observers
-subject.notify("Hello Observers!");
-
-// Unsubscribe an observer
-subject.unsubscribe(observer1);
-
-// Notify again (only observer2 should receive this)
-subject.notify("Another update!");
+})();
 ```
 
 ---
 
-## Explanation
-1. **Subject Class:**
-   - Maintains a list of observers.
-   - Provides methods to subscribe, unsubscribe, and notify observers.
-
-2. **Observer Class:**
-   - Implements an `update` method that gets called when notified.
-
-3. **Usage:**
-   - We create a subject and observers.
-   - Observers subscribe to the subject.
-   - When `notify()` is called, all observers receive the update.
-   - Unsubscribed observers do not receive further updates.
+## 🎯 **How the Observer Pattern Improves the Tabs Component**
+✔ **Decouples UI logic** – External functions can listen for tab changes without modifying the component.  
+✔ **Easier to extend** – If we later want to track analytics or update another UI element when a tab changes, we simply **subscribe a new function**.  
+✔ **Real-time updates** – Components dynamically react to changes without modifying the original `tabs` function.  
 
 ---
 
-## Real-World Applications
-- **Event Listeners:** DOM elements listening for events.
-- **State Management:** Libraries like Redux, Vuex, and MobX.
-- **Pub/Sub Systems:** WebSockets, messaging queues, etc.
+## 🔥 **Example: Subscribing Another Component**
+You can easily subscribe a function to track tab changes and update the UI dynamically.
+
+```js
+tabComponent.subscribe((newTab) => {
+  document.getElementById("log").textContent = `Current Tab: ${newTab}`;
+});
+```
+
+This will update a `<div id="log"></div>` element every time the user switches tabs.
 
 ---
 
-## Conclusion
-The **Observer Pattern** is a powerful way to create a loosely coupled system where multiple objects react to changes dynamically. It is widely used in modern JavaScript applications, especially in UI frameworks and event-driven programming.
-
----
-
-
-
+## 🚀 **Final Thoughts**
+By integrating the **Observer Pattern**, your tabs component becomes **more modular, maintainable, and extensible**.  
+Now, other parts of your app can react to tab changes **without modifying the core component**! 🎯  
