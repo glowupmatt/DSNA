@@ -17,6 +17,7 @@ function fizzBuzz() {
 }
 // fizzBuzz()
 
+// ExtendedFizzBuzz
 function extendedFizzBuzz(start, end, divisor1, divisor2) {
   //Print buzz for multiples of divisor1
   //Print fizz for multiples of divisor2
@@ -38,6 +39,7 @@ function extendedFizzBuzz(start, end, divisor1, divisor2) {
 }
 // extendedFizzBuzz(10, 30, 2, 7)
 
+//Filter and Sort
 // Given an array of objects representing employees, filter out employees 
 // below a certain age and sort the remaining ones by their name alphabetically.
 
@@ -54,4 +56,52 @@ function filterAndSortEmployees(employees, minAge) {
     .sort((a, b) => a.name.localeCompare(b.name))
 }
 
-console.log(filterAndSortEmployees(employees, 23));
+/* 
+Expected Out put 
+[
+  { name: "Alice", age: 25 },
+  { name: "Charlie", age: 28 }
+]
+ */
+// console.log(filterAndSortEmployees(employees, 23));
+
+//Group Array Of Object By Key
+const data = [
+  { category: "fruit", name: "apple" },
+  { category: "fruit", name: "banana" },
+  { category: "vegetable", name: "carrot" },
+  { category: "fruit", name: "pear" },
+  { category: "vegetable", name: "spinach" },
+];
+
+function groupBy(data, key) {
+  //we want to create an object that is organized by the key
+  //we need to create a response object
+  //loop through all the values in the data array
+  //create a key value pair based off of the key passed
+  //put the values in the array of the key
+  const res = {}
+  for (let i = 0; i < data.length; i++){
+    const value = data[i];
+    if (res[value[key]]) {
+      res[value[key]].push(value)
+    } else {
+      res[value[key]] = [value]
+    }
+  }
+  return res
+}
+console.log(groupBy(data, "category"))
+/*
+{
+  fruit: [
+    { category: "fruit", name: "apple" },
+    { category: "fruit", name: "banana" },
+    { category: "fruit", name: "pear" },
+  ],
+  vegetable: [
+    { category: "vegetable", name: "carrot" },
+    { category: "vegetable", name: "spinach" },
+  ],
+}
+*/
