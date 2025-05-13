@@ -1,10 +1,18 @@
 {
-  "type":"module",
+  "type": "module",
   "scripts": {
     "test": "mocha"
   },
   "devDependencies": {
     "chai": "^5.2.0",
     "mocha": "^11.2.2"
+  },
+  "dependencies": {
+    "axios": "~0.28.0",
+    "bluebird": "^3.5.4",
+    "chai": "^4.2.0",
+    "codingexercises": "file:",
+    "lodash": "^4.17.11",
+    "mocha": "^6.1.4"
   }
 }

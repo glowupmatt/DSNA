@@ -11,10 +11,16 @@ const expected = [
 ];
 
 function getNestedValue(obj, key) {
-  if (obj == null || typeof obj !== "object") return undefined;
+  //need to create a function that will check if there is an Object nested
+  //we will also check if we find the key in the obj
+  //if we find the key then we will return the result
+  //if we dont we return undefined or null
+  if (typeof obj !== "object") return undefined;
   if (obj.hasOwnProperty(key)) return obj[key];
-  for (const k in obj) {
-    if (typeof obj[k] === "object") {
+
+  for (let val in obj) {
+    if (val === key) return obj[val];
+    if (typeof obj[val] === "object") {
       const found = getNestedValue(obj[k], key);
       if (found !== undefined) return found;
     }
