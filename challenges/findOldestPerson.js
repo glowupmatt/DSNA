@@ -1,5 +1,3 @@
-// Challenge 5: Find the Oldest Person
-
 const people = [
   { name: "Alice", age: 30 },
   { name: "Bob", age: 45 },
@@ -9,12 +7,13 @@ const people = [
 function findOldestPerson(arr) {
   return arr.reduce((prev, person) => {
     if (person.age > prev.age) {
-      return person
+      return person;
     } else {
-      return prev
+      return prev;
     }
-  }, arr[0])
+  }, arr[0]);
 }
 
-console.log(findOldestPerson(people))
-//{ name: "Bob", age: 45 }
+console.log(findOldestPerson(people));
+
+export default findOldestPerson;
