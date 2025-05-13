@@ -11,28 +11,27 @@ const expected = [
 ];
 
 function getNestedValue(obj, key) {
-  //need to create a function that will check if there is an Object nested
-  //we will also check if we find the key in the obj
-  //if we find the key then we will return the result
-  //if we dont we return undefined or null
+  //create a recursive function that will check if there is a nested object
+  //we want a based case of if the object contains the key
+  //if it doesnt we will return undefined
+  //if it does we will return the value of the key we were looking for
   if (typeof obj !== "object") return undefined;
   if (obj.hasOwnProperty(key)) return obj[key];
-
-  for (let val in obj) {
-    if (val === key) return obj[val];
+  for (const val in obj) {
+    if (val === key) return obj[key];
     if (typeof obj[val] === "object") {
-      const found = getNestedValue(obj[k], key);
-      if (found !== undefined) return found;
+      const hasKey = getNestedValue(obj[val], key);
+      if (hasKey !== undefined) return hasKey;
     }
   }
   return undefined;
 }
 
 function sortByNestedKey(products, key) {
-  return products.slice().sort((a, b) => {
-    const aVal = getNestedValue(a, key);
-    const bVal = getNestedValue(b, key);
-    return aVal - bVal;
+  return products.sort((a, b) => {
+    const aValue = getNestedValue(a, key);
+    const bValue = getNestedValue(b, key);
+    return aValue - bValue;
   });
 }
-sortByNestedKey(products, "price");
+console.log(sortByNestedKey(products, "price"));

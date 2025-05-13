@@ -20,4 +20,6 @@ function groupBy(data, key) {
   return res;
 }
 
+console.log(groupBy(data, "category"));
+
 export default groupBy;

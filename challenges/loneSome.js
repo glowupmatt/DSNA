@@ -1,4 +1,4 @@
-export default function (a, b, c) {
+function loneSome(a, b, c) {
   /*
 Given 3 int values, a b c, return their sum. However, if one of the values is the same as another of the values, it does not count towards the sum.
 
@@ -25,11 +25,19 @@ Write your code below the comment.
 
   const args = [...arguments];
 
-  const seen = args.reduce((map, currVal) => {
-    return map.set(currVal, (map.get(currVal) || 0) + 1);
-  }, new Map());
+  let count = new Map();
 
-  return [...seen.entries()]
-    .filter(([_, value]) => value === 1)
-    .reduce((sum, [key, _]) => (sum += key), 0);
+  args.forEach((data) => {
+    count.set(data, (count.has(data) || 0) + 1);
+  });
+
+  return Array.from(count)
+    .filter(([_, val]) => val === 1)
+    .reduce((prev, [key, val]) => (key += prev), 0);
 }
+
+console.log(loneSome(1, 2, 3)); // => 6
+console.log(loneSome(3, 2, 3)); // => 2
+console.log(loneSome(3, 3, 3)); // => 0
+
+export default loneSome;
