@@ -11,7 +11,7 @@ function findOldestPerson(arr) {
     } else {
       return prev;
     }
-  }, arr[1]);
+  }, arr[0]);
 }
 
 console.log(findOldestPerson(people));
