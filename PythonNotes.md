@@ -5,7 +5,7 @@
 ### **1. No `.contains()` or `.has()` method like in JavaScript**
 
 - In **JavaScript**, to check if an item exists in an array or object, you can use `.contains()` for arrays and `.has()` for objects.
-- In **Python**, there is **no `.contains()` or `.has()`** method for these operations. Instead, you can use the `in` keyword to check if an item exists in a list, dictionary, or other collections.
+- In **Python**, there is **no `.contains()` or `.has()`** method for these operations. Instead, you can use the `in` keyword to check if an item exists in a list, dictionary, or other collections
 
   **Example:**
   ```python
