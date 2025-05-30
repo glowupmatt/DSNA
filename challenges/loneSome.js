@@ -16,7 +16,7 @@ Write your code below the comment.
   // if (c !== a && b !== c) sum += c
   // return sum
 
-  //we want to dynamically take in an infinante amount of arguments instead of three arguments
+  //we want to dynamically take in an infinite amount of arguments instead of three arguments
   //with this we can use the arguments key word and spread it out in its own variable
   //next we need to check if we have seen the number more than once
   //if we have seen the value more than once we will skip it
@@ -33,7 +33,7 @@ Write your code below the comment.
 
   return Array.from(count)
     .filter(([_, val]) => val === 1)
-    .reduce((prev, [key, val]) => (key += prev), 0);
+    .reduce((prev, [key, _]) => (key += prev), 0);
 }
 
 console.log(loneSome(1, 2, 3)); // => 6

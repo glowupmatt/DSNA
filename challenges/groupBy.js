@@ -9,12 +9,23 @@ const data = [
 
 function groupBy(data, key) {
   const res = {};
+  //we want the res to contain an array of objects that have to same key
+  //so if do a category we can create an array where the key to the arrays will be the value of the category
+  //{
+  //fruit : []
+  //vegetable:[]
+  //}
+  //we will just push the object into the response
+
   for (let i = 0; i < data.length; i++) {
-    const value = data[i];
-    if (res[value[key]]) {
-      res[value[key]].push(value);
+    //we need to check if the category already exist
+    //if it does then we will push it in that array else
+    //we will create it
+    const val = data[i];
+    if (res[val[key]]) {
+      res[val[key]].push(val);
     } else {
-      res[value[key]] = [value];
+      res[val[key]] = [val];
     }
   }
   return res;

@@ -8,7 +8,6 @@ const items = [
 const expected = 2;
 
 function countOccurrences(arr, key, value) {
-  //we need to count each time a value shows up in each key
   let count = 0;
   for (let i = 0; i < arr.length; i++) {
     const val = arr[i];

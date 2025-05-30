@@ -24,10 +24,11 @@ function mergeArrays(arr1, arr2, key) {
   const res = {};
   for (let i = 0; i < merged.length; i++) {
     const val = merged[i];
-    if (res[val[key]]) {
-      res[val[key]] = { ...res[val[key]], val };
+    const useKey = val[key];
+    if (res[useKey]) {
+      res[useKey] = { ...res[useKey], ...val };
     } else {
-      res[val[key]] = val;
+      res[useKey] = val;
     }
   }
 

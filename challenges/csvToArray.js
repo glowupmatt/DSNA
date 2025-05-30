@@ -1,4 +1,4 @@
-export default function (csv) {
+export default function parseCSV(csv) {
   /*
 	A stringified CSV file will be passed into this function.
 	Parse the string so it is an array of objects and return the array.
@@ -15,36 +15,32 @@ export default function (csv) {
 
 	Write your code below the comment.
 */
+  // FirstName,LastName,Age\nDan,Tran,29\nDon,Tran,25\nJasmine,Tran,13
+  //          ,        ,   \n   ,    ,  \n   ,    ,  \n       ,    ,
+  //We can split the headers by splitting "\n" and grabbing the 0th index
+  //We can find the values by grabbing slicing the 0th index from the string
+  //Same with the , to get the exact values
+  //Then we can do a loop grabbing the headers and inside the loop do another loop attaching the values
+  //To the header values and return the obj
 
-  //Need to split the keys and the values from each other
-  //each value is split from \n so I can grab the first value in the split array to make rows
-  //will look like FirstName,LastName,Age and split from the comma to be in an array
-  //then i can create a new array from the actual data names and ages ect...
-  //i need two loops kinda following a matrix like data structure
-  //create an object and loop through the data to add into the res array
+  const res = [];
+  const headers = csv.split("\n")[0].split(",");
+  const values = csv
+    .split("\n")
+    .slice(1)
+    .map((val) => val.split(","));
 
-  //grab the keys for each value kinda like the Table header
-  //grab all the values in an array and split them in to their own value
-  //loop through the keys
-  //loop through the values inside of the keys loop
-  //then create an object for each array
-  //add the object to a response array
-  //return the response array
-  //			cols
-  //rows	FirstName		LastName		Age
-  //		  Dan					Tran				29
-  //		  Don					ricka				25
-  //		  Jasminse		pullser			29
-  const csvData = csv.split("\n");
-  const headers = csvData[0].split(",");
-  const data = csvData.slice(1).map((d) => d.split(","));
-  let res = [];
-  for (let row = 0; row < data.length; row++) {
-    let obj = {};
-    for (let col = 0; col < headers.length; col++) {
-      obj[headers[col]] = data[row][col];
+  for (let i = 0; i < headers.length; i++) {
+    const user = {};
+    for (let k = 0; k < values.length; k++) {
+      const key = headers[k];
+      const val = values[i][k];
+
+      user[key] = val;
     }
-    res.push(obj);
+    res.push(user);
   }
-  return res;
+  console.log(res);
 }
+
+parseCSV("FirstName,LastName,Age\nDan,Tran,29\nDon,Tran,25\nJasmine,Tran,13");
