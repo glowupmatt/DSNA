@@ -9,10 +9,6 @@
 
 // return total number of coins
 
-// ===
-// Do not use AI (including tab completion) for this task.
-// Looking up syntax on the internet is fine.
-
 // coins = [25, 10, 5, 1]
 // return an error if it doesnt equal exact
 // array wont always be sorted
